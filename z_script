@@ -1,0 +1,28 @@
+git add . 
+git commit -m " done $1"
+git push
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+https://excel-pratique.com/fr/vba/creer_fonction_personnalisee
