@@ -1,0 +1,184 @@
+Les boucles permettent de répéter des instructions un certain nombre de fois pour vous éviter de devoir écrire des macros d'une longueur interminable et vous faire gagner un temps considérable.
+
+Le code suivant numérote les cellules de la colonne A (de la ligne 1 à 12) :
+
+
+Sub exemple()
+
+    Cells(1, 1) = 1
+    Cells(2, 1) = 2
+    Cells(3, 1) = 3
+    Cells(4, 1) = 4
+    Cells(5, 1) = 5
+    Cells(6, 1) = 6
+    Cells(7, 1) = 7
+    Cells(8, 1) = 8
+    Cells(9, 1) = 9
+    Cells(10, 1) = 10
+    Cells(11, 1) = 11
+    Cells(12, 1) = 12
+
+End Sub
+Ce code est très répétitif ...
+
+Maintenant, imaginez qu'il faille numéroter plusieurs milliers de lignes ... Vous comprenez donc probablement l'intérêt de créer des boucles.
+
+Voici la boucle Do :
+
+Sub exemple()
+
+    Do While [CONDITION]
+        'Instructions
+    Loop
+
+End Sub
+Tant que la condition est vraie, les instructions sont exécutées en boucle (attention à ne pas créer une boucle infinie).
+
+Voici la macro répétitive ci-dessus avec la boucle Do :
+
+Sub exemple()
+
+    Dim numero As Integer
+
+    numero = 1 'Numéro de départ
+
+    Do While numero <= 12 'Tant que la variable numero est <= 12, la boucle est répétée
+        Cells(numero, 1) = numero 'Numérotation
+        numero = numero + 1 'Le numéro est augmenté de 1 à chaque boucle
+    Loop
+
+End Sub
+Avec cette boucle, si nous voulons numéroter 500 lignes, il suffit alors de remplacer 12 par 500 ...
+
+DO LOOP
+
+Dans le précédent exemple, vous avez pu voir la boucle Do sous la forme suivante :
+
+Sub exemple()
+
+    Do While [CONDITION]
+        'Instructions
+    Loop
+
+End Sub
+Avec Do, la condition peut également être placée en fin de boucle, ce qui implique que les instructions seront dans tous les cas exécutées au moins une fois :
+
+Sub exemple()
+
+    Do
+        'Instructions
+    Loop While [CONDITION]
+
+End Sub
+Plutôt que de répéter la boucle tant que la condition est vraie, il est possible de quitter la boucle lorsque la condition est vraie en remplaçant While par Until :
+
+Sub exemple()
+
+    Do Until [CONDITION]
+        'Instructions
+    Loop
+
+End Sub
+FOR NEXT
+
+Sub exemple()
+    
+    Dim i As Integer
+
+    For i = 1 To 5
+        'Instructions
+    Next
+
+End Sub
+La boucle For est répétée ici 5 fois.
+
+
+A chaque répétition de la boucle, la variable i est automatiquement incrémentée de 1 :
+
+Sub exemple()
+    
+    Dim i As Integer
+
+    For i = 1 To 5
+        MsgBox i 'Renvoie les valeurs : 1 / 2 / 3 / 4 / 5
+    Next
+
+End Sub
+Si nécessaire, vous pouvez modifier l'incrément (par défaut à 1) de la boucle en ajoutant Step :
+
+Sub exemple()
+    
+    Dim i As Integer
+
+    For i = 10 To 0 Step -2
+        MsgBox i 'Renvoie les valeurs : 10 / 8 / 6 / 4 / 2 / 0
+    Next
+
+End Sub
+FOR EACH NEXT
+
+La boucle For Each permet de parcourir chaque élément d'un ensemble d'éléments, par exemple parcourir chaque cellule d'une plage de cellules :
+
+Sub exemple()
+
+    Dim cellule As Range
+    
+    For Each cellule In Range("A1:B3")
+        cellule = cellule.Address
+    Next
+
+End Sub
+Parcourir chaque feuille du classeur :
+
+Sub exemple()
+
+    Dim feuille As Worksheet
+    
+    For Each feuille In Worksheets
+        MsgBox feuille.Name
+    Next
+
+End Sub
+Parcourir chaque élément d'un tableau :
+
+Sub exemple()
+
+    Dim tableau(2) As String
+    
+    tableau(0) = "A"
+    tableau(1) = "B"
+    tableau(2) = "C"
+    
+    For Each valeur In tableau
+        MsgBox valeur
+    Next
+
+End Sub
+QUITTER UNE BOUCLE PRÉMATURÉMENT
+
+Il est possible de quitter une boucle For prématurément grâce à l'instruction suivante :
+
+Exit For 'Quitter une boucle For
+Dans cet exemple, l'objectif est de retourner le numéro de la première ligne contenant la valeur 1. Lorsque cet objectif est atteint, le numéro est affiché et la boucle est interrompue (car il est dans ce cas inutile de parcourir les autres lignes) :
+
+Sub exemple()
+    
+    Dim i As Integer
+
+    'Boucle pour 100 lignes au maximum
+    For i = 1 To 100
+
+        'Si la cellule vaut 1
+        If Cells(i, 1) = 1 Then 'Si l'objectif est atteint
+            MsgBox "La cellule a été trouvée à la ligne " & i & " !"
+            Exit For 'On quitte la boucle For
+        End If
+
+    Next
+
+End Sub
+Les autres instructions Exit :
+
+Exit Do 'Quitter une boucle Do
+Exit Sub 'Quitter une procédure
+Exit Function 'Quitter une fonction
