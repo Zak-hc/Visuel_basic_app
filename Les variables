@@ -1,0 +1,136 @@
+Les variables permettent de stocker toutes sortes de données.
+
+Voici un premier exemple :
+
+'Affichage de la valeur de la variable dans une boîte de dialogue
+Sub variables()
+
+    'Déclaration de la variable
+    Dim maVariable As Integer
+	
+    'Attribution d'une valeur à la variable
+    maVariable = 12
+	
+    'Affichage de la valeur de maVariable dans une MsgBox
+    MsgBox maVariable
+	
+End Sub
+
+Cette première ligne de code est la déclaration de la variable (généralement placée en début de procédure).
+
+Dim maVariable As Integer
+Dim : déclaration de la variable
+maVariable : nom choisi pour cette variable (sans espaces)
+As : déclaration du type de la variable
+Integer : type de la variable
+Déclarer ses variables n'est pas obligatoire mais recommandé. Cela permet de s'y retrouver plus facilement, peut aider dans certains cas à résoudre plus facilement les problèmes, etc. Mieux vaut donc prendre l'habitude de déclarer correctement ses variables.
+
+Le type de la variable indique la nature de son contenu (texte, nombres, date, etc.).
+
+Une valeur est ensuite donnée à cette variable :
+
+maVariable = 12
+Et enfin, la valeur de la variable est affichée dans une boîte de dialogue :
+
+MsgBox maVariable
+MsgBox affiche une valeur dans une boîte de dialogue (les boîtes de dialogue seront détaillées dans quelques leçons).
+
+Le résultat de ce code :
+
+msgbox variables
+Si pour le moment vous ne comprenez pas bien l'intérêt d'utiliser des variables, soyez rassuré, les exemples abordés au cours des prochaines leçons vous en démontreront l'utilité.
+
+LES TYPES DE VARIABLES
+
+Nom	Type	Détails	Symbole
+Byte	Numérique	Nombre entier de 0 à 255.	
+Integer	Numérique	Nombre entier de -32'768 à 32'767.	%
+Long	Numérique	Nombre entier de - 2'147'483'648 à 2'147'483'647.	&
+Currency	Numérique	Nombre à décimale fixe de -922'337'203'685'477.5808 à 922'337'203'685'477.5807.	@
+Single	Numérique	Nombre à virgule flottante de -3.402823E38 à 3.402823E38.	!
+Double	Numérique	Nombre à virgule flottante de -1.79769313486232E308 à 1.79769313486232E308.	#
+String	Texte	Texte.	$
+Date	Date	Date et heure.	
+Boolean	Boolean	True (vrai) ou False (faux).	
+Object	Objet	Objet.	
+Variant	Tous	Tout type de données (type par défaut si la variable n'est pas déclarée).	
+Quelques exemples avec différents types :
+
+'Exemple : nombre entier
+Dim nbEntier As Integer
+nbEntier = 12345
+    
+'Exemple : nombre à virgule
+Dim nbVirgule As Single
+nbVirgule = 123.45
+
+'Exemple : texte
+Dim varTexte As String
+varTexte = "Excel-Pratique.com"
+
+'Exemple : date
+Dim varDate As Date
+varDate = "06/08/2024"
+
+'Exemple : vrai/faux
+Dim varBoolean As Boolean
+varBoolean = True
+    
+'Exemple : objet (objet Worksheet pour cet exemple)
+Dim varFeuille As Worksheet
+Set varFeuille = Sheets("Feuil2") 'Set => attribution d'une valeur à une variable objet
+    
+'Exemple d'utilisation de la variable objet : activation de la feuille
+varFeuille.Activate
+Les symboles indiqués dans le tableau ci-dessus permettent de raccourcir les déclarations de variables.
+
+Par soucis de lisibilité, ils ne seront pas utilisés dans les leçons mais voici tout de même un exemple :
+
+Dim exemple As Integer
+Dim exemple%
+Ces deux lignes sont identiques.
+Il est possible de forcer les déclarations de variables en plaçant Option Explicit tout au début du module (une erreur sera ainsi générée en cas d'oubli de déclaration).
+EXEMPLE PRATIQUE
+
+Nous allons maintenant créer par étapes une macro qui va récupérer le nom dans la cellule A2, le prénom dans la cellule B2, l'âge dans la cellule C2 et qui va les afficher dans une boîte de dialogue.
+
+Fichier source : exercice_variables.xlsm
+
+Commençons par déclarer les variables (sur la même ligne, séparées par des virgules) :
+
+Sub variables()
+
+    'Déclaration des variables
+    Dim nom As String, prenom As String, age As Integer
+    
+End Sub
+Attribuons ensuite les valeurs des cellules aux variables :
+
+Sub variables()
+
+    'Déclaration des variables
+    Dim nom As String, prenom As String, age As Integer
+
+    'Valeurs des variables
+    nom = Cells(2, 1)
+    prenom = Cells(2, 2)
+    age = Cells(2, 3)
+
+End Sub
+Et enfin, affichons le résultat dans la boîte de dialogue en concaténant les valeurs avec & (comme dans les formules Excel) :
+
+Sub variables()
+
+    'Déclaration des variables
+    Dim nom As String, prenom As String, age As Integer
+
+    'Valeurs des variables
+    nom = Cells(2, 1)
+    prenom = Cells(2, 2)
+    age = Cells(2, 3)
+
+    'Boîte de dialogue
+    MsgBox nom & " " & prenom & ", " & age & " ans"
+
+End Sub
+
