@@ -1,0 +1,170 @@
+LES TABLEAUX
+
+Les variables permettent de stocker une seule valeur par variable, les tableaux permettent de stocker une multitude de valeurs par tableau (leur utilisation est proche de celle des variables).
+
+Voici quelques exemples de déclarations :
+
+'Exemple de déclaration de variable
+Dim var1 As String
+    
+'Exemple de déclaration de tableau à 1 dimension
+Dim tab1(4) As String
+    
+'Exemple de déclaration de tableau à 2 dimensions
+Dim tab2(4, 3) As String
+LE TABLEAU À 1 DIMENSION
+
+'Exemple de déclaration de tableau à 1 dimension
+Dim tab1(4) As String
+Dans cette déclaration, il n'y a qu'un chiffre entre parenthèses, il s'agit donc d'un tableau à une dimension.
+
+Ce chiffre indique également le nombre de cases du tableau. Dans le cas présent, tab1(4) est un tableau dont les cases vont de 0 à 4, il s'agit donc d'un tableau de comportant 5 cases :
+
+0
+1
+2
+3
+4
+Et voici comment attribuer des valeurs aux 5 cases de ce tableau :
+
+tab1(0) = "Valeur de la case 0"
+tab1(1) = "Valeur de la case 1"
+tab1(2) = "Valeur de la case 2"
+tab1(3) = "Valeur de la case 3"
+tab1(4) = "Valeur de la case 4"
+La première case d'un tableau est le 0.
+LE TABLEAU À 2 DIMENSIONS
+
+'Exemple de déclaration de tableau à 2 dimensions
+Dim tab2(4, 3) As String
+0, 0
+0, 1
+0, 2
+0, 3
+1, 0
+1, 1
+1, 2
+1, 3
+2, 0
+2, 1
+2, 2
+2, 3
+3, 0
+3, 1
+3, 2
+3, 3
+4, 0
+4, 1
+4, 2
+4, 3
+Et voici comment attribuer des valeurs aux cases d'un tableau à 2 dimensions :
+
+tab2(0, 0) = "Valeur de la case rouge"
+tab2(4, 1) = "Valeur de la case verte"
+tab2(2, 3) = "Valeur de la case bleue"
+Nous reviendrons sur les tableaux plus tard dans ce cours.
+
+LES CONSTANTES
+
+Les constantes permettent de stocker des valeurs comme les variables, à la différence près qu'on ne peut pas les modifier (d'où leur nom) après les avoir déclarées.
+
+Par exemple, ces quelques lignes calculent le montant de la TVA en fonction d'un taux de TVA de 12.34% :
+
+Sub exemple()
+
+    Cells(1, 1) = Cells(1, 2) * 0.1234
+    Cells(2, 1) = Cells(2, 2) * 0.1234
+    Cells(3, 1) = Cells(3, 2) * 0.1234
+    Cells(4, 1) = Cells(4, 2) * 0.1234
+    Cells(5, 1) = Cells(5, 2) * 0.1234
+	
+End Sub
+Pour éviter les répétitions et faciliter la lecture de ce code, il est possible de déclarer le taux de TVA sous forme de constante :
+
+Sub exemple()
+
+    'Déclaration de la constante + attribution de sa valeur
+    Const TAUX_TVA As Double = 0.1234
+    
+    Cells(1, 1) = Cells(1, 2) * TAUX_TVA
+    Cells(2, 1) = Cells(2, 2) * TAUX_TVA
+    Cells(3, 1) = Cells(3, 2) * TAUX_TVA
+    Cells(4, 1) = Cells(4, 2) * TAUX_TVA
+    Cells(5, 1) = Cells(5, 2) * TAUX_TVA
+	
+End Sub
+En utilisant une constante, le jour où le taux de TVA changera, il vous suffira de modifier une seule fois la valeur de la constante dans le code (au lieu de rechercher et remplacer toutes les valeurs 0.1234 dans le code).
+
+Par convention, une constante se nomme en majuscules en séparant les mots par un _ (par exemple : EXEMPLE_DE_NOM).
+LA PORTÉE DES VARIABLES
+
+Si la variable est déclarée au début d'une procédure (Sub), elle ne peut être utilisée que dans cette même procédure. La valeur de la variable n'est pas conservée après l'exécution de la procédure.
+
+Sub procedure1()
+
+   Dim var1 As Integer
+
+   '=> Utilisation de la variable dans la procédure uniquement
+
+End Sub
+
+Sub procedure2()
+
+   '=> Impossible d'utiliser var1 ici
+
+End Sub
+Pour pouvoir utiliser une variable dans toutes les procédures d'un module, il suffit de la déclarer en début de module. De plus, cela permet de conserver la valeur de la variable jusqu'à la fermeture du classeur.
+
+Dim var1 As Integer
+
+Sub procedure1()
+
+   '=> Utilisation de var1 possible
+
+End Sub
+
+Sub procedure2()
+
+   '=> Utilisation de var1 possible
+
+End Sub
+Même principe pour utiliser une variable dans tous les modules, à la différence près que Dim est remplacé par Public :
+
+Public var1 As Integer
+Pour conserver la valeur d'une variable à la fin d'une procédure, remplacez Dim par Static :
+
+Sub procedure1()
+
+    Static var1 As Integer
+
+End Sub
+Pour conserver les valeurs de toutes les variables d'une procédure, ajoutez Static devant Sub :
+
+Static Sub procedure1()
+
+    Dim var1 As Integer
+
+End Sub
+CRÉER SON PROPRE TYPE DE VARIABLE
+
+Nous n'allons pas nous attarder sur ce point, voici juste un exemple :
+
+'Création d'un type de variable
+Type Utilisateur
+    Nom As String
+    Prenom As String
+End Type
+    
+Sub exemple()
+
+    'Déclaration
+    Dim user1 As Utilisateur
+    
+    'Attributions des valeurs à user1
+    user1.Nom = "Smith"
+    user1.Prenom = "John"
+    
+    'Exemple d'utilisation
+    MsgBox user1.Nom & " " & user1.Prenom
+
+End Sub
