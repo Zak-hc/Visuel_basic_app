@@ -1,0 +1,255 @@
+Les conditions sont très utiles en programmation, elles nous serviront à effectuer des actions en fonction de critères précis (même principe que la fonction SI).
+
+La principale instruction est If, voici comment elle fonctionne :
+
+If [CONDITION] Then '=> SI condition vraie ALORS
+    'Instructions si vrai
+Else '=> SINON (facultatif)
+    'Instructions si faux
+End If
+
+
+Sub exemple()
+
+    'Déclaration des variables
+    Dim nom As String, prenom As String, age As Integer, numeroLigne As Integer
+        
+    'Valeurs des variables
+    numeroLigne = Range("F5") + 1
+    nom = Cells(numeroLigne, 1)
+    prenom = Cells(numeroLigne, 2)
+    age = Cells(numeroLigne, 3)
+    
+    'Boîte de dialogue
+    MsgBox nom & " " & prenom & ", " & age & " ans"
+	
+End Sub
+Nous allons commencer par ajouter une condition pour vérifier si la valeur de la cellule F5 est bien numérique avant d'exécuter le code.
+
+La fonction IsNumeric sera utilisée dans cette condition :
+
+Sub exemple()
+
+    'Si la valeur entre parenthèses (cellule F5) est numérique (donc si la condition est vraie) alors on exécute les instructions placées entre "Then" et "End If"
+    If IsNumeric(Range("F5")) Then
+    
+        'Déclaration des variables
+        Dim nom As String, prenom As String, age As Integer, numeroLigne As Integer
+		
+        'Valeurs des variables
+        numeroLigne = Range("F5") + 1
+        nom = Cells(numeroLigne, 1)
+        prenom = Cells(numeroLigne, 2)
+        age = Cells(numeroLigne, 3)
+		
+        'Boîte de dialogue
+        MsgBox nom & " " & prenom & ", " & age & " ans"
+        
+    End If
+    
+End Sub
+Ajoutons également des instructions pour le cas où la condition n'est pas remplie :
+
+Sub exemple()
+
+    'Si F5 est numérique
+    If IsNumeric(Range("F5")) Then
+    
+        'Déclaration des variables
+        Dim nom As String, prenom As String, age As Integer, numeroLigne As Integer
+		
+        'Valeurs des variables
+        numeroLigne = Range("F5") + 1
+        nom = Cells(numeroLigne, 1)
+        prenom = Cells(numeroLigne, 2)
+        age = Cells(numeroLigne, 3)
+		
+        'Boîte de dialogue
+        MsgBox nom & " " & prenom & ", " & age & " ans"
+    
+    'Si F5 n'est pas numérique
+    Else
+    
+        'Boîte de dialogue : avertissement
+        MsgBox "L'entrée """ & Range("F5") & """ n'est pas valide !"
+		
+        'Suppression du contenu de la cellule F5
+        Range("F5") = ""
+    
+    End If
+    
+End Sub
+Les valeurs non numériques ne sont désormais plus un problème.
+
+Notre tableau contient 16 lignes de données (de la ligne 2 à la ligne 17), nous allons donc vérifier maintenant si la variable numeroLigne est plus grande ou égale à 2 et plus petite ou égale à 17.
+
+Mais avant, voici les opérateurs de comparaison :
+
+=	Est égal à
+<>	Est différent de
+<	Est plus petit que
+<=	Est plus petit ou égal à
+>	Est plus grand que
+>=	Est plus grand ou égal à
+Ainsi que d'autres opérateurs utiles :
+
+And	Et	[CONDITION 1] And [CONDITION 2]
+Les 2 conditions doivent être vraies
+Or	Ou	[CONDITION 1] Or [CONDITION 2]
+Au moins 1 des 2 conditions doit être vraie
+Not	Faux	Not [CONDITION]
+La condition doit être fausse
+Mod	Modulo	[NOMBRE] Mod [DIVISEUR]
+Cet opérateur retourne le reste d'une division
+Ajoutons maintenant les conditions indiquées un peu plus haut en utilisant And ainsi que les opérateurs de comparaison détaillés ci-dessus :
+
+Sub exemple()
+
+    'Si F5 est numérique
+    If IsNumeric(Range("F5")) Then
+
+        Dim nom As String, prenom As String, age As Integer, numeroLigne As Integer
+        numeroLigne = Range("F5") + 1
+
+        'Si le numéro est dans la bonne plage
+        If numeroLigne >= 2 And numeroLigne <= 17 Then
+            nom = Cells(numeroLigne, 1)
+            prenom = Cells(numeroLigne, 2)
+            age = Cells(numeroLigne, 3)
+            MsgBox nom & " " & prenom & ", " & age & " ans"
+
+        'Si le numéro est en dehors de la plage
+        Else
+            MsgBox "L'entrée """ & Range("F5") & """ n'est pas un numéro valide !"
+            Range("F5") = ""
+        End If
+
+    'Si F5 n'est pas numérique
+    Else
+        MsgBox "L'entrée """ & Range("F5") & """ n'est pas valide !"
+        Range("F5") = ""
+    End If
+
+End Sub
+
+Pour rendre notre macro plus pratique, nous pouvons encore remplacer 17 par une variable contenant le nombre de lignes. Cela nous permettra d'ajouter/retirer des lignes à notre tableau sans avoir à modifier à chaque fois cette limite dans le code.
+
+Pour cela, créons une variable nbLignes et ajoutons cette fonction CountA:
+
+nb lignes conditions
+WorksheetFunction.CountA ne vous dit probablement rien mais il s'agit en fait de la fonction NBVAL que vous connaissez probablement déjà (sinon, cliquez ici).
+
+Nous demandons à cette fonction de comptabiliser le nombre de cellules non vides de la première colonne et nous remplaçons ensuite 17 par nbLignes :
+
+Sub exemple()
+
+    'Si F5 est numérique
+    If IsNumeric(Range("F5")) Then
+
+        Dim nom As String, prenom As String, age As Integer, numeroLigne As Integer, nbLignes As Integer
+        
+        numeroLigne = Range("F5") + 1
+        nbLignes = WorksheetFunction.CountA(Range("A:A")) 'Fonction NBVAL
+
+        'Si le numéro est dans la bonne plage
+        If numeroLigne >= 2 And numeroLigne <= nbLignes Then
+            nom = Cells(numeroLigne, 1)
+            prenom = Cells(numeroLigne, 2)
+            age = Cells(numeroLigne, 3)
+            MsgBox nom & " " & prenom & ", " & age & " ans"
+
+        'Si le numéro est en dehors de la plage
+        Else
+            MsgBox "L'entrée """ & Range("F5") & """ n'est pas un numéro valide !"
+            Range("F5") = ""
+        End If
+
+    'Si F5 n'est pas numérique
+    Else
+        MsgBox "L'entrée """ & Range("F5") & """ n'est pas valide !"
+        Range("F5") = ""
+    End If
+End Sub
+ELSEIF
+
+ElseIf permet d'ajouter plusieurs conditions à la suite :
+
+If [CONDITION 1] Then '=> SI la condition 1 est vraie ALORS
+    'Instructions 1
+ElseIf [CONDITION 2] Then '=> SINON, SI la condition 2 est vraie ALORS
+    'Instructions 2
+Else '=> SINON
+    'Instructions 3
+End If
+Si la condition 1 est vraie, les instructions 1 sont exécutées puis nous sortons de l'instruction If (qui débute avec If et se termine à End If). Si la condition 1 est fausse, nous passons à la condition 2. Si celle-ci est vraie les instructions 2 sont exécutées si ce n'est pas le cas les instructions 3 sont alors exécutées.
+
+Voici un exemple, avec en A1 une note de 1 à 6 et en B1 un commentaire en fonction de la note :
+
+Sub commentaires()
+
+    'Variables
+    Dim note As Single, commentaire As String
+    note = Range("A1")
+    
+    'Commentaire en fonction de la note
+    If note = 6 Then
+        commentaire = "Excellent résultat !"
+    ElseIf note >= 5 Then
+        commentaire = "Bon résultat"
+    ElseIf note >= 4 Then
+        commentaire = "Résultat satisfaisant"
+    ElseIf note >= 3 Then
+        commentaire = "Résultat insatisfaisant"
+    ElseIf note >= 2 Then
+        commentaire = "Mauvais résultat"
+    ElseIf note >= 1 Then
+        commentaire = "Résultat exécrable"
+    Else
+        commentaire = "Aucun résultat"
+    End If
+    
+    'Commentaire en B1
+    Range("B1") = commentaire
+
+End Sub
+SELECT
+
+Une alternative aux instructions If contenant beaucoup de ElseIf existe, il s'agit de Select (cette instruction étant plus adaptée dans ce genre de cas).
+
+Voici la même macro avec Select :
+
+Sub commentaires()
+
+    'Variables
+    Dim note As Single, commentaire As String
+    note = Range("A1")
+    
+    'Commentaire en fonction de la note
+    Select Case note '<= la valeur à tester (ici, la note)
+        Case Is = 6
+            commentaire = "Excellent résultat !"
+        Case Is >= 5
+            commentaire = "Bon résultat"
+        Case Is >= 4
+            commentaire = "Résultat satisfaisant"
+        Case Is >= 3
+            commentaire = "Résultat insatisfaisant"
+        Case Is >= 2
+            commentaire = "Mauvais résultat"
+        Case Is >= 1
+            commentaire = "Résultat exécrable"
+        Case Else
+            commentaire = "Aucun résultat"
+    End Select
+    
+    'Commentaire en B1
+    Range("B1") = commentaire
+
+End Sub
+Notez que nous pouvons également entrer plusieurs valeurs :
+
+Case Is = 6, 7 'Si la valeur = 6 ou 7
+Case Is <> 6, 7 'Si la valeur est différente de 6 ou 7
+Ou une plage de valeurs :
+
+Case 6 To 10 'Si la valeur = de 6 à 10
