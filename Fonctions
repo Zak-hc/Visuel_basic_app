@@ -1,0 +1,37 @@
+FONCTIONS VBA
+
+Il existe de nombreuses fonctions VBA que vous pouvez utiliser dans vos développements.
+
+Nous en avons utilisé quelques-unes à travers les exemples cours, telles que les fonctions IsNumeric, Year, Split, Join, Array, Date, Chr, etc.
+
+Vous pouvez retrouver la liste de toutes les principales fonctions VBA (avec un exemple d'utilisation pour chaque fonction) dans Fonctions VBA.
+
+
+FONCTIONS EXCEL
+
+Il est également possible d'utiliser les fonctions Excel dans le code VBA.
+
+Après avoir entré WorksheetFunction suivi d'un ., la liste des fonctions apparaît.
+
+1 fonctions vba
+Les fonctions sont toutes en anglais ...
+
+Pour s'y retrouver, une liste des fonctions traduites en anglais est disponible sur ce site.
+
+Fonction en français |	Fonction en anglais |	Description de la fonction
+NB	COUNT	Détermine les nombres compris dans la liste des arguments.
+NB.SI	COUNTIF	Compte le nombre de cellules qui répondent à un critère donné dans une plage.
+NB.SI.ENS	COUNTIFS	Compte le nombre de cellules à l’intérieur d’une plage qui répondent à plusieurs critères.
+NB.VIDE	COUNTBLANK	Compte le nombre de cellules vides dans une plage.
+NBVAL	COUNTA	Détermine le nombre de valeurs comprises dans la liste des arguments.
+La fonction choisie pour cet exemple est donc NB.VIDE.
+
+2 fonctions vba
+L'exemple suivant affiche le nombre de cellules vides de la plage A1:D8 dans la boîte de dialogue 
+
+Sub exemple()
+
+    MsgBox WorksheetFunction.CountBlank(Range("A1:D8"))
+
+End Sub
+« Gérez facilement votre stock (articles, entrées, sorties, clients, fournisseurs, etc) grâce à cette application Excel »
