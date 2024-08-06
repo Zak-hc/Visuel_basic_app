@@ -1,0 +1,107 @@
+L'événement SelectionChange est ajouté par défaut, il agit lors d'un changement de sélection :
+
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+
+End Sub
+Par exemple, voici un code qui colore la ou les cellules sélectionnées et qui supprime automatiquement la coloration de la dernière sélection lors d'un changement de sélection :
+
+Private Sub Worksheet_SelectionChange(ByVal Target As Range)
+
+    Static selectionPrecedente As String
+
+    'Suppression de la couleur de fond de la sélection précédente
+    If selectionPrecedente <> "" Then
+        Range(selectionPrecedente).Interior.ColorIndex = xlColorIndexNone
+    End If
+
+    'Coloration de la sélection actuelle
+    Target.Interior.Color = RGB(181, 244, 0)
+
+    'Enregistrement de l'adresse de la sélection actuelle
+    selectionPrecedente = Target.Address
+
+End Sub
+WORKSHEET_ACTIVATE (À L'ACTIVATION DE LA FEUILLE)
+
+Cet événement se déclenche lorsque la feuille est activée :
+
+Private Sub Worksheet_Activate()
+
+End Sub
+Par exemple, sélection de la cellule D5 à l'activation de la feuille :
+
+Private Sub Worksheet_Activate()
+    
+    Range("D5").Select
+    
+End Sub
+WORKSHEET_DEACTIVATE (À LA SORTIE DE LA FEUILLE)
+
+Cet événement se déclenche lorsqu'une autre feuille du classeur est activée :
+
+Private Sub Worksheet_Deactivate()
+
+End Sub
+Par exemple, effacement du contenu des cellules B2 à B10 après avoir quitté la feuille :
+
+Private Sub Worksheet_Deactivate()
+    
+    Range("B2:B10").ClearContents
+    
+End Sub
+WORKSHEET_BEFOREDOUBLECLICK (AU DOUBLE-CLIC)
+
+Cet événement se déclenche lors d'un double-clic sur une cellule de la feuille :
+
+Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean)
+
+End Sub
+Par exemple, coloration de la cellule double-cliquée en vert (ou en blanc si elle est déjà colorée) :
+
+Private Sub Worksheet_BeforeDoubleClick(ByVal Target As Range, Cancel As Boolean)
+
+    If Target.Interior.Color = 16777215 Then 'Si blanc
+        Target.Interior.Color = RGB(200, 255, 100) 'Couleur verte
+    Else 'Sinon
+        Target.Interior.Color = 16777215 'Couleur blanche
+    End If
+    
+End Sub
+Le double-clic peut être annulé en attribuant la valeur True à la variable Cancel.
+
+WORKSHEET_BEFORERIGHTCLICK (AU CLIC DROIT)
+
+Cet événement se déclenche lors d'un clic droit sur la feuille :
+
+Private Sub Worksheet_BeforeRightClick(ByVal Target As Range, Cancel As Boolean)
+
+End Sub
+Par exemple, ajout de la date du jour par clic droit si la cellule cliquée est dans la colonne C :
+
+Private Sub Worksheet_BeforeRightClick(ByVal Target As Range, Cancel As Boolean)
+
+    'Si cellule de la colonne 3 (C)
+    If Target.Column = 3 Then
+        Target = Date 'Ajout de la date du jour
+        Cancel = True 'Annulation du clic droit
+    End If
+    
+End Sub
+Le clic droit peut être annulé en attribuant la valeur True à la variable Cancel (dans ce cas, le menu contextuel ne sera pas affiché).
+
+WORKSHEET_CHANGE (À CHAQUE MODIFICATION DE CELLULE)
+
+Cet événement se déclenche lors de modifications du contenu des cellules de la feuille :
+
+Private Sub Worksheet_Change(ByVal Target As Range)
+
+End Sub
+DÉSACTIVER TEMPORAIREMENT TOUS LES ÉVÉNEMENTS
+
+Pour exécuter du code sans déclencher d'événements, placez-le entre ces deux lignes :
+
+Application.EnableEvents = False 'Désactive les événements
+
+'Instructions ...
+
+Application.EnableEvents = True 'Réactive les événements
