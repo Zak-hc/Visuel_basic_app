@@ -1,0 +1,17 @@
+Private Sub avertissement(pp As String)
+
+    MsgBox "Attention !!!" & pp & "!!!"
+
+End Sub
+
+Sub exemple()
+
+    If Range("A1") = "" Then
+        avertissement (" vide ") '<= exécute la procédure "avertissement"
+   
+ElseIf Not IsNumeric(Range("A1")) Then
+ avertissement (" is nit numeriv ")
+ ElseIf IsNumeric(Range("A1")) Then
+ avertissement (" is  numerico ")
+  End If
+End Sub
