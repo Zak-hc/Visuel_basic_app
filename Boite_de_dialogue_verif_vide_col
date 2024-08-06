@@ -1,0 +1,21 @@
+Sub effacerColonneB()
+    Dim cell As Range
+    Dim colonneVide As Boolean
+    colonneVide = True
+    
+    ' Parcourir chaque cellule de la colonne B
+    For Each cell In Range("B:B")
+        If Not IsEmpty(cell.Value) Then
+            colonneVide = False
+            Exit For
+        End If
+    Next cell
+    
+    ' Vérifier si la colonne est vide
+    If colonneVide Then
+        MsgBox "Le contenu de la colonne B n'est pas là !"
+    Else
+        Range("B:B").ClearContents
+        MsgBox "Le contenu de la colonne B a été effacé !"
+    End If
+End Sub
