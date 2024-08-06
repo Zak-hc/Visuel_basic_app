@@ -1,0 +1,20 @@
+'''LES FONCTIONS
+
+La principale différence entre Sub et Function est qu'une fonction retourne une valeur.
+
+En voici un exemple simple :'''
+Function carre(nombre As Double)
+
+    carre = nombre ^ 2 'La fonction "carre" retourne la valeur de "carre"
+
+End Function
+
+Sub exemple()
+
+    Dim resultat As Double
+	
+    resultat = carre(9.876) 'La variable resultat reçoit la valeur retournée par la fonction
+	
+    MsgBox resultat 'Affichage du résultat (ici, le carré de 9.876)
+	
+End Sub
