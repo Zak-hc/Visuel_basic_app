@@ -1,0 +1,42 @@
+'Tri croissant (ordre alphabétique) d'un tableau à 1 dimension
+'Source : https://excel-pratique.com/fr/astuces_vba/trier-tableau-array
+Sub triCroissant(tableau)
+    nb = UBound(tableau)
+    tabTemp = tableau
+    Erase tableau
+    For i = 0 To nb
+        pos = 0
+        For l = 0 To nb
+            If LCase(tabTemp(i)) > LCase(tabTemp(l)) And i <> l Then
+                pos = pos + 1
+            End If
+        Next
+        For j = 1 To 1
+            If tableau(pos) = "" Then
+                tableau(pos) = tabTemp(i)
+            Else
+                pos = pos + 1
+                j = j - 1
+            End If
+        Next
+    Next
+End Sub
+'''ensuite'''
+Sub exemple()
+    
+    Dim tableau(29)
+    
+    'Pour exemple : copie de A1 à A30 dans un tableau
+    For i = 1 To 30
+        tableau(i - 1) = Range("A" & i)
+    Next
+
+    'Tri du tableau
+    triCroissant tableau
+    
+    'Pour exemple : copie du tableau trié dans la colonne B
+    For i = 1 To 30
+        Range("B" & i) = tableau(i - 1)
+    Next
+
+End Sub
