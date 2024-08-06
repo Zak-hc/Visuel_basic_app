@@ -1,0 +1,8 @@
+Sub effacerB2()
+
+    If MsgBox("Etes-vous certain de vouloir supprimer le contenu de B2 ?", vbYesNo, "Demande de confirmation") = vbYes Then
+        Range("B2").ClearContents
+        MsgBox "Le contenu de B2 a été effacé !"
+    End If
+
+End Sub
