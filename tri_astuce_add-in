@@ -1,0 +1,11 @@
+
+
+''' l'add-in gratuit disponible sur Excel-Pratique, on peut simplement utiliser arraySortAsc pour trier votre tableau :
+
+Sub triCroissant()
+
+    tableau = Array("Test", 36, "Q", "ABCD", 8, 211, "XLP", 45)
+     
+    arraySortAsc tableau 'Tri croissant du tableau
+
+End Sub
