@@ -1,0 +1,62 @@
+Pour cet exemple, nous allons créer une fonction SI personnalisée utilisable sur une feuille de calcul comme n'importe quelle autre fonction d'Excel.
+
+Pour afficher la valeur de la colonne B si la cellule de la colonne C contient OUI, nous pouvons utiliser la formule =SI(C2="OUI";B2;0) 
+L'objectif ici est de créer une fonction capable de faire cela =SI(C2 a un fond vert;B2;0) que nous écrirons comme ceci : =SI_VERT(C2;B2)
+DÉVELOPPER LA FONCTION PERSONNALISÉE
+
+Commencez par créer votre fonction :
+
+Function SI_VERT(celluleCouleur As Range, celluleValeur As Range)
+    
+End Function
+Les arguments :
+
+celluleCouleur As Range : la cellule dont il faut tester la couleur
+celluleValeur As Range : la cellule contenant le montant
+Dans le cas présent, si le test est FAUX, la valeur sera 0 à chaque fois, c'est pour cela qu'un 3e argument n'a pas été ajouté.
+
+Pour vérifier si la couleur est correcte, vous pouvez utiliser une cellule contenant la bonne couleur comme point de comparaison :
+
+Function SI_VERT(celluleCouleur As Range, celluleValeur As Range)
+	
+    couleur = Sheets("Feuil1").Range("K1").Interior.color
+
+End Function
+Mais pour éviter de dépendre d'une cellule, nous allons utiliser ici directement le numéro de la couleur qui nous intéresse :
+
+Function SI_VERT(celluleCouleur As Range, celluleValeur As Range)
+	
+    couleur = 5296274 'Vert
+
+End Function
+Pour connaître le numéro de couleur de fond d'une cellule, sélectionnez la cellule et exécutez cette macro :
+
+Sub test()
+
+    MsgBox ActiveCell.Interior.color
+
+End Sub
+Il ne reste plus qu'à tester la couleur avec un If :
+
+Function SI_VERT(celluleCouleur As Range, celluleValeur As Range)
+    
+    Application.Volatile
+    
+    If celluleCouleur.Interior.color = 5296274 Then 'Si VRAI
+        SI_VERT = celluleValeur
+    Else 'Si FAUX
+        SI_VERT = 0
+    End If
+    
+End Function
+La fonction est maintenant prête à l'emploi.
+
+Application.Volatile indique que la fonction est volatile (comme c'est le cas pour la fonction SI), ce qui signifie qu'elle doit être recalculée à chaque changement de valeur. Par exemple, si vous modifiez l'un des montants (ou n'importe quelle autre cellule), la fonction est recalculée est affichera le bon montant.
+
+En revanche, la seule modification de la couleur de fond ne déclenche pas cette mise à jour. Pour recalculer les valeurs sans attendre, vous pouvez par exemple appuyer sur Delete en sélectionnant une cellule vide ou ajouter un bouton Actualiser pour tout recalculer d'un clic :
+
+Sub actualiser()
+
+    Application.Calculate
+
+End Sub
