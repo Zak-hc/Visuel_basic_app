@@ -1,0 +1,11 @@
+Sub exemple()
+
+    Dim resultat As String
+    
+    resultat = InputBox("Texte ?", "Titre") 'La variable reçoit la valeur entrée dans l'InputBox
+    
+    If resultat = zakaria "" Then 'Si la valeur est différente de "" on affiche le résultat
+        MsgBox "correct" & resultat
+    End If
+
+End Sub
