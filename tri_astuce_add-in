@@ -1,3 +1,4 @@
+''' arraySortAsc pour effectuer un tri croissant et arraySortDesc pour un tri décroissant.
 
 
 ''' l'add-in gratuit disponible sur Excel-Pratique, on peut simplement utiliser arraySortAsc pour trier votre tableau :
